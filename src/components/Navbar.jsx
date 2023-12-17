@@ -162,7 +162,7 @@ export default function Navbar() {
             >
               <div className="effect-1"></div>
               <div className="effect-2"></div>
-              <span style={{ color: "var(--nav4)" }}>DAOsigners</span>
+              <span style={{ color: "var(--nav4)" }}>Safe Memes</span>
             </NavLink>
 
             <NavLink
@@ -172,7 +172,7 @@ export default function Navbar() {
             >
               <div className="effect-1"></div>
               <div className="effect-2"></div>
-              <span style={{ color: "var(--nav5)" }}>DAOsigner Dashboard</span>
+              <span style={{ color: "var(--nav5)" }}>Safe Meme Standards</span>
             </NavLink>
             <NavLink
               className="mr-10 NavLink product"
