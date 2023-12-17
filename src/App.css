@@ -1,0 +1,445 @@
+:root {
+  /* Default theme */
+  --nav1: #e6f6e9;
+  --nav2: #e3e7d8;
+  --nav3: #d4eddf;
+  --bac1: #f2f8f3;
+  --bac2: #d3d3d3;
+  --bac3: #b2d4c3;
+  --bac4: #e3f5eb;
+  --bac5: #d0e2d5;
+  --header-color: #678677;
+  --description-color: #67976f;
+  --content-color: #819251;
+  --hover-description-background: #d0e2d5;
+  --effect-1: #e3f5eb;
+  --effect-2: #f2f8f3;
+  background-image: radial-gradient(circle at 10% 20%, var(--bac1), transparent),
+    radial-gradient(circle at 80% 70%, var(--bac2), transparent),
+    linear-gradient(to bottom right, var(--bac3), rgba(var(--bac3), 0.5)),
+    linear-gradient(to top left, var(--bac4), rgba(var(--bac4), 0.5)),
+    linear-gradient(to bottom, var(--bac5), rgba(var(--bac5), 0.8));
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  --button-text: #649e83;
+  --hover-text: #f0f8f6;
+  --hover-subtext: #f8f5f2;
+}
+
+[data-theme="Morning"] {
+  /* Morning-themed colors */
+  --nav1: #f0e68c; /* Light khaki */
+  --nav2: #fafad2; /* Light goldenrod yellow */
+  --nav3: #117fa3; /* Light blue */
+  --bac1: #ffe4c4; /* Bisque */
+  --bac2: #d3d3d3; /* Light gray */
+  --bac3: #076381; /* Dark cyan */
+  --bac4: #9ad0c2; /* Light turquoise */
+  --bac5: #57cc99; /* Medium aquamarine */
+  --header-color: #076381; /* Dark cyan */
+  --description-color: #40aa8e; /* Light turquoise */
+  --content-color: #fafad2; /* Light goldenrod yellow */
+  --hover-description-background: #57cc99; /* Medium aquamarine */
+  --effect-1: #add8e6; /* Light blue */
+  --effect-2: #ffe4c4; /* Bisque */
+  /* Background with gradients in different directions */
+  background-image: radial-gradient(circle at 10% 20%, var(--bac1), transparent),
+    radial-gradient(circle at 80% 70%, var(--bac2), transparent),
+    linear-gradient(to bottom right, var(--bac3), transparent),
+    linear-gradient(to top left, var(--bac4), transparent),
+    linear-gradient(to bottom, var(--bac5), transparent);
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  --button-text: #0b8199;
+  --hover-text: #d8fafa; /* Light cyan */
+  --hover-subtext: #f9faf5; /* Beige */
+}
+
+/* Lemonade theme */
+[data-theme="Lemonade"] {
+  --nav1: #d1a670; /* Bisque */
+  --nav2: #ceb00a; /* Gold */
+  --nav3: #dac938; /* Khaki */
+  --bac1: #f3e598; /* Pale yellow, extracted from background-color */
+  --bac2: #f5f5dc; /* Light beige, extracted from background-color */
+  --bac3: #fff8dc; /* Pale apricot, extracted from background-color */
+  --bac4: #f3e598; /* Pale yellow, extracted from background-color */
+  --bac5: #f5f5dc; /* Light beige, extracted from background-color */
+  --header-color: #0c0475;
+  --description-color: #0612b9;
+  --content-color: #1723ce;
+  --hover-description-background: #ffd700; /* Gold */
+  --effect-1: #f0e68c; /* Khaki */
+  --effect-2: #fafad2; /* Light goldenrod yellow */
+  --gradient: linear-gradient(264deg, #fafad2, #f5f5dc, #fff8dc);
+  background-image: radial-gradient(circle at 10% 20%, var(--bac1), transparent),
+    radial-gradient(circle at 80% 70%, var(--bac2), transparent),
+    linear-gradient(to bottom right, var(--bac3), transparent),
+    linear-gradient(to top left, var(--bac4), transparent),
+    linear-gradient(to bottom, var(--bac5), transparent);
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  --hover-text: #ffd700; /* Gold */
+  --hover-subtext: #fff8dc; /* Cornsilk */
+}
+
+/* Mountain Dew theme */
+[data-theme="Mountain Dew"] {
+  --nav1: #2699bd; /* Mountain Dew Green */
+  --nav2: #32aada; /* Ice Blue */
+  --nav3: #4ac0eb; /* Dark Mountain Dew Green */
+  --bac1: #eef7ff; /* Light Ice Blue, extracted from background-color */
+  --bac2: #f8f9fd; /* Pale Blue, extracted from background-color */
+  --bac3: #f5f8fc; /* Very Light Ice Blue, extracted from background-color */
+  --bac4: #eef7ff; /* Light Ice Blue, extracted from background-color */
+  --bac5: #f8f9fd; /* Pale Blue, extracted from background-color */
+  --header-color: #00739d; /* Dark Mountain Dew Green */
+  --description-color: #2699bd; /* Mountain Dew Green */
+  --content-color: #2699bd; /* Mountain Dew Green */
+  --button-text: #00739d; /* Dark Mountain Dew Green, assumed based on header-color */
+  --hover-text: #00739d; /* Dark Mountain Dew Green */
+  --hover-subtext: #2699bd; /* Mountain Dew Green */
+  background-image: radial-gradient(circle at 10% 20%, var(--bac1), transparent),
+    radial-gradient(circle at 80% 70%, var(--bac2), transparent),
+    linear-gradient(to bottom right, var(--bac3), transparent),
+    linear-gradient(to top left, var(--bac4), transparent),
+    linear-gradient(to bottom, var(--bac5), transparent);
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  --hover-description-background: #d9e4f2; /* Very Light Ice Blue with slight transparency */
+  --effect-1: #eef7ff; /* Light Ice Blue */
+  --effect-2: #c6e1f2; /* Lighter Ice Blue */
+}
+
+[data-theme="Breezy"] {
+  --nav1: #7595be;
+  --nav2: #69a3ac;
+  --nav3: #00b4d8;
+  --bac1: #eef5ff; /* Very light blue */
+  --bac2: #9eb8d9; /* Light blue-green */
+  --bac3: #7c93c3; /* Mid-blue */
+  --bac4: #e3ecf5; /* Lighter blue, extracted from original background gradient */
+  --bac5: #d1e7f3; /* Very light blue, extracted from original background gradient */
+  --header-color: #0d1d47;
+  --description-color: #1a2d96;
+  --content-color: #2f689c;
+  --button-text: #3579d3;
+  background-image: radial-gradient(circle at 10% 20%, var(--bac1), transparent),
+    radial-gradient(circle at 80% 70%, var(--bac2), transparent),
+    linear-gradient(to bottom right, var(--bac3), transparent),
+    linear-gradient(to top left, var(--bac4), transparent),
+    linear-gradient(to bottom, var(--bac5), transparent);
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  --effect-1: var(--bac2); /* Light blue-green */
+  --effect-2: var(--bac3); /* Mid-blue */
+}
+
+/* Coffee theme with various brown shades */
+[data-theme="Coffee"] {
+  --nav1: #dbc2a2; /* Light brown */
+  --nav2: #b2916e; /* Medium-light brown */
+  --nav3: #825f49; /* Medium brown */
+  --bac1: #6e4c38; /* Medium-dark brown */
+  --bac2: #402b1c; /* Dark brown */
+  --bac3: #261a12; /* Darkest brown */
+  --bac4: #986951; /* Lighter brown */
+  --bac5: #543b35; /* Darker brown */
+  --header-color: #402b1c; /* Dark brown */
+  --description-color: #9b8272; /* Medium brown */
+  --content-color: #dbc2a2; /* Light brown */
+  --hover-description-background: #b2916e; /* Medium-light brown */
+  --effect-1: #9869515e; /* Lighter brown */
+  --effect-2: #402b1c4d; /* Dark brown */
+  background-image: radial-gradient(circle at 10% 20%, var(--bac4), transparent),
+    radial-gradient(circle at 80% 70%, var(--bac2), transparent),
+    linear-gradient(to bottom right, var(--bac3), transparent),
+    linear-gradient(to top left, var(--bac1), transparent),
+    linear-gradient(to bottom, var(--bac5), transparent);
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  --button-text: #b2916e; /* Medium-light brown */
+  --hover-text: #543b35; /* Darker brown */
+  --hover-subtext: #dbc2a2; /* Light brown */
+}
+
+/* Summer theme */
+[data-theme="Summer"] {
+  --nav1: #ffcc00; /* Vivid Yellow */
+  --nav2: #ffa500; /* Orange */
+  --nav3: #ff7f50; /* Coral */
+  --bac1: #ffe4e1; /* Misty Rose */
+  --bac2: #f0f8ff; /* Alice Blue */
+  --bac3: #7fffd4; /* Aquamarine */
+  --bac4: #87cefa; /* Light Sky Blue */
+  --bac5: #98fb98; /* Pale Green */
+  --header-color: #2e8b57; /* Sea Green (darker turquoise) */
+  --description-color: #6a5acd; /* Slate Blue (darker light blue) */
+  --content-color: #dbb91f; /* Dark Khaki */
+  --hover-description-background: #ffcc00; /* Vivid Yellow */
+  --effect-1: #87cefa; /* Light Sky Blue */
+  --effect-2: #7fffd4; /* Aquamarine */
+  background-image: radial-gradient(circle at 10% 20%, var(--bac4), transparent),
+    radial-gradient(circle at 80% 70%, var(--bac2), transparent),
+    linear-gradient(to bottom right, var(--bac3), transparent),
+    linear-gradient(to top left, var(--bac1), transparent),
+    linear-gradient(to bottom, var(--bac5), transparent);
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  --button-text: #ffd700; /* Gold */
+  --hover-text: #ff4500; /* Orange Red */
+  --hover-subtext: #ffffe0; /* Light Yellow */
+}
+
+/* Halloween theme with added variables */
+[data-theme="Halloween"] {
+  --header-color: #ff6b6b; /* Red */
+  --description-color: #ffb166; /* Orange */
+  --content-color: #470864; /* Dark Gray */
+  --nav1: #ff8e8e; /* Light red */
+  --nav2: #ffcc99; /* Light orange */
+  --nav3: #fab433; /* Medium Gray */
+  --bac1: #660000; /* Dark red */
+  --bac2: #ff751a; /* Orange-red */
+  --bac3: #1a1a1a; /* Dark Gray */
+  --bac4: #660066; /* Purple */
+  --bac5: #262626; /* Very Dark Gray */
+  --hover-description-background: #ff8e8e; /* Light red (same as nav1) */
+  --effect-1: #ff761a81; /* Orange-red (same as bac2) */
+  --effect-2: #66006683; /* Purple (same as bac4) */
+  background-image: radial-gradient(circle at 10% 20%, var(--bac4), transparent),
+    radial-gradient(circle at 80% 70%, var(--bac2), transparent),
+    linear-gradient(to bottom right, var(--bac3), transparent),
+    linear-gradient(to top left, var(--bac1), transparent),
+    linear-gradient(to bottom, var(--bac5), transparent);
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  --button-text: #ffb166; /* Orange (same as description-color) */
+  --hover-text: #ffcc99; /* Light orange (same as nav2) */
+  --hover-subtext: #333333; /* Dark Gray (same as content-color) */
+}
+
+/* Custom theme with provided background color */
+[data-theme="Moonlit"] {
+  --nav1: #ffd700; /* Gold */
+  --nav2: #99ffff; /* Light Cyan */
+  --nav3: #c0c0c0; /* Silver */
+  --bac1: #000033; /* Dark Midnight Blue */
+  --bac2: #191970; /* Midnight Blue */
+  --bac3: #808080; /* Gray */
+  --bac4: #483d8b; /* Dark Slate Blue */
+  --bac5: #dcdcdc; /* Gainsboro */
+  --header-color: #f7e063; /* Gold */
+  --description-color: #99ffff; /* Light Cyan */
+  --content-color: #43c29c; /* Silver */
+  --hover-description-background: #808080; /* Gray */
+  --effect-1: #7766e252; /* Dark Slate Blue */
+  --effect-2: #4a701956; /* Midnight Blue */
+  background-image: radial-gradient(circle at 10% 20%, var(--bac4), transparent),
+    radial-gradient(circle at 80% 70%, var(--bac2), transparent),
+    linear-gradient(to bottom right, var(--bac3), transparent),
+    linear-gradient(to top left, var(--bac1), transparent),
+    linear-gradient(to bottom, var(--bac5), transparent);
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  --button-text: #808080; /* Gray */
+  --hover-text: #dcdcdc; /* Gainsboro */
+  --hover-subtext: #c0c0c0; /* Silver */
+}
+
+/* Ocean City theme */
+[data-theme="Ocean City"] {
+  --nav1: #2270ac;
+  --nav2: #276594;
+  --nav3: #265f8a;
+  --bac1: #90d1f9; /* Ocean Blue */
+  --bac2: #e0e0e2; /* Light Grey */
+  --bac3: #dbf9ff; /* Ice Blue */
+  --bac4: #34a0a4; /* Teal */
+  --bac5: #52b69a; /* Greenish Turquoise */
+  --header-color: #3c8874; /* Light Turquoise */
+  --description-color: #478ac9; /* Light Grey */
+  --content-color: #dbf9ff; /* Ice Blue */
+  --hover-description-background: #092f41; /* Dark Teal */
+  --effect-1: #77d5f7; /* Sky Blue */
+  --effect-2: #52f7c8; /* Mint Green */
+  background-image: radial-gradient(circle at 10% 20%, var(--bac4), transparent),
+    radial-gradient(circle at 80% 70%, var(--bac2), transparent),
+    linear-gradient(to bottom right, var(--bac3), transparent),
+    linear-gradient(to top left, var(--bac1), transparent),
+    linear-gradient(to bottom, var(--bac5), transparent);
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  --button-text: #90e7f8; /* Light Sky Blue */
+  --hover-text: #d8fafa; /* Light Cyan */
+  --hover-subtext: #f9faf5; /* Beige */
+  --text: #067288; /* Dark Cyan */
+}
+
+/* Street Light theme */
+[data-theme="Street Light"] {
+  --nav1: #fae25b; /* Gold */
+  --nav2: #def5b9; /* Pale Green */
+  --nav3: #a9a9a9; /* Dark Gray */
+  --bac1: #222222; /* Dark Gray */
+  --bac2: #2e2e2e; /* Slightly Darker Gray */
+  --bac3: #1a1a1a; /* Almost Black */
+  --bac4: #3f3f3f; /* Dim Gray */
+  --bac5: #fae25b; /* Gold */
+  --header-color: #fae25b; /* Gold */
+  --description-color: #f1b037; /* Pale Green */
+  --content-color: #2963a5; /* Dark Gray */
+  --hover-description-background: #222222; /* Darker Gray */
+  --effect-1: #e9979786; /* Dark Gray */
+  --effect-2: #f4f76069; /* Gray */
+  background-image: radial-gradient(circle at 10% 20%, var(--bac1), transparent),
+    radial-gradient(circle at 80% 70%, var(--bac2), transparent),
+    linear-gradient(to bottom right, var(--bac3), transparent),
+    linear-gradient(to top left, var(--bac4), transparent),
+    linear-gradient(to bottom, var(--bac5), transparent);
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  --button-text: #f0dc6a; /* Gold */
+  --hover-text: #fdeb81; /* Light Gold */
+  --hover-subtext: #f1e575; /* Yellow Green */
+  --text: #696969; /* Dim Gray */
+}
+
+/* Neon Night theme */
+[data-theme="Neon Night"] {
+  --nav1: #ff00ff; /* Neon Magenta */
+  --nav2: #00ff00; /* Neon Green */
+  --nav3: #2b9dac; /* Neon Blue */
+  --bac1: #030363; /* Dark Blue */
+  --bac2: #4d024d; /* Dark Purple */
+  --bac3: #023b57; /* Deep Teal */
+  --bac4: #024d02; /* Dark Green */
+  --bac5: #570257; /* Dark Magenta */
+  --header-color: #ff00ff; /* Neon Magenta */
+  --description-color: #ffff00; /* Yellow */
+  --content-color: #17fd50; /* White */
+  --effect-1: #ff00ff52; /* Neon Magenta */
+  --effect-2: #00ff0054; /* Neon Green */
+  background-image: radial-gradient(circle at 10% 20%, var(--bac1), transparent),
+    radial-gradient(circle at 80% 70%, var(--bac2), transparent),
+    linear-gradient(to bottom right, var(--bac3), transparent),
+    linear-gradient(to top left, var(--bac4), transparent),
+    linear-gradient(to bottom, var(--bac5), transparent);
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  --button-text: #ff00ff; /* Neon Magenta */
+  --hover-text: #00ff00; /* Neon Green */
+  --hover-subtext: #0000ff; /* Neon Blue */
+  --text: #ffffff; /* White */
+}
+
+/* Cyberpunk theme */
+[data-theme="Cyberpunk"] {
+  --nav1: #04b491; /* Neon Cyan */
+  --nav2: #ff66ff; /* Neon Pink */
+  --nav3: #00ccff; /* Neon Blue */
+  --bac1: #1a001a; /* Dark Purple */
+  --bac2: #990033; /* Dark Red */
+  --bac3: #330033; /* Dark Purple */
+  --bac4: #990066; /* Dark Pink */
+  --bac5: #000000; /* Black */
+  --header-color: #ff66ff; /* Neon Pink */
+  --description-color: #0099ff; /* Neon Blue */
+  --content-color: #11ee80; /* White */
+  --effect-1: #00ffcc; /* Neon Cyan */
+  --effect-2: #ff66ff; /* Neon Pink */
+  background-image: radial-gradient(circle at 10% 20%, var(--bac4), transparent),
+    radial-gradient(circle at 80% 70%, var(--bac2), transparent),
+    linear-gradient(to bottom right, var(--bac3), transparent),
+    linear-gradient(to top left, var(--bac1), transparent),
+    linear-gradient(to bottom, var(--bac5), transparent);
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  --button-text: #00ccff; /* Neon Blue */
+  --hover-text: #990066; /* Dark Pink */
+  --hover-subtext: #ff66ff; /* Neon Pink */
+  --text: #ffffff; /* White */
+}
+
+body {
+  background: var(--background-color);
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+  background-color: #d1d1d1;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+}
+
+a {
+  font-weight: 500;
+  color: #1c1c1c;
+  text-decoration: inherit;
+}
+
+a:hover {
+  color: #535bf2;
+}
+
+nav {
+  border-bottom: 1px solid #eaeaea;
+  margin-bottom: 7em;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background-color: var(--background-color);
+}
+
+#root {
+  width: 100%;
+  height: 100%;
+  place-items: center;
+  text-align: center;
+}
+
+.page-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.paragraph-container {
+  margin-bottom: 20px; /* Adjust spacing */
+}
+
+.chart-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ChainSelector */
+.buttonsContainer {
+  display: flex;
+  margin-top: 3em;
+  margin-bottom: 1.5em;
+  flex-wrap: wrap;
+  gap: 11px;
+  align-items: center;
+  justify-content: center;
+}
+
+.ant-btn {
+  display: inline-flex;
+  align-items: center;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+}
