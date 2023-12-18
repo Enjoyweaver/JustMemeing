@@ -12,6 +12,7 @@ import Treasury from "./pages/Dashboard";
 import Dashboard from "./pages/Dashboard";
 import Criteria from "./pages/Criteria";
 import Prices from "./pages/Prices";
+import Holders from "./pages/Holders";
 
 function App() {
   const router = createHashRouter(
@@ -22,6 +23,7 @@ function App() {
         <Route path="treasury" element={<Treasury />} />
         <Route path="criteria" element={<Criteria />} />
         <Route path="prices" element={<Prices />} />
+        <Route path="holders" element={<Holders />} />
       </Route>
     )
   );
