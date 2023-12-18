@@ -13,15 +13,18 @@ const Prices = ({ contractAddresses }) => {
   const [pricesData, setPricesData] = useState([]);
   const [tokenData, setTokenData] = useState([]);
 
-  const transformForRecharts = (rawData) => {
-    return rawData.map((token) => ({
-      date: token.prices[0].date, // Assuming date is available in the response
-      price: token.prices[0].price, // Assuming price is available in the response
-      contractName: token.contract_name, // Contract name from the response
-      tickerSymbol: token.contract_ticker_symbol,
-      contractAddress: token.contract_address, // Contract address from the response
-      // Add more fields if needed based on the structure of the response
-    }));
+  const transformForRecharts = (rawData, startDate, endDate) => {
+    return rawData
+      .flatMap((token) => token.prices) // Flatten the array of prices from multiple tokens
+      .filter((price) => price.date >= startDate && price.date <= endDate)
+      .map((price) => ({
+        date: price.date,
+        price: price.price,
+        contractName: price.contract_metadata.contract_name,
+        tickerSymbol: price.contract_metadata.contract_ticker_symbol,
+        contractAddress: price.contract_metadata.contract_address,
+        // Add more fields if needed based on the structure of the response
+      }));
   };
 
   useEffect(() => {
@@ -34,22 +37,31 @@ const Prices = ({ contractAddresses }) => {
         const validAddresses =
           Array.isArray(contractAddresses) && contractAddresses.length > 0
             ? contractAddresses
-            : ["0x321162Cd933E2Be498Cd2267a90534A804051b11"];
+            : ["0xb715F8DcE2F0E9b894c753711bd55eE3C04dcA4E"];
+
+        // Calculate start and end timestamps for the desired date range
+        const startDate = new Date("2023-01-01").toISOString().split("T")[0]; // Format: YYYY-MM-DD
+        const endDate = new Date("2023-12-01").toISOString().split("T")[0]; // Format: YYYY-MM-DD
 
         const apiUrl = `https://api.covalenthq.com/v1/pricing/historical_by_addresses_v2/${chainName}/${quoteCurrency}/${validAddresses.join(
           ","
-        )}/?key=${apiKey}`;
+        )}/?key=${apiKey}&from=${startDate}&to=${endDate}`;
 
         const response = await fetch(apiUrl);
-        const data = await response.json();
+        const responseData = await response.json();
 
-        if (Array.isArray(data.data)) {
-          const formattedPrices = transformForRecharts(data.data);
-          setPricesData(formattedPrices);
-          setTokenData(data.data); // Set token data for displaying token details
-        } else {
-          console.error("Invalid data format:", data);
+        if (responseData.error || !Array.isArray(responseData.data)) {
+          console.error("Error in API response:", responseData.error_message);
+          return; // Stop further execution if there's an error in the response
         }
+
+        const formattedPrices = transformForRecharts(
+          responseData.data,
+          startDate,
+          endDate
+        );
+        setPricesData(formattedPrices);
+        setTokenData(responseData.data); // Set token data for displaying token details
       } catch (error) {
         console.error("Error fetching or processing data:", error);
         // Handle errors as needed
@@ -58,6 +70,14 @@ const Prices = ({ contractAddresses }) => {
 
     fetchData();
   }, [contractAddresses]);
+
+  const formatTokenPrice = (price) => {
+    const priceBN = BigInt(parseFloat(price * 10 ** 18).toFixed(0)); // Convert the number to BigInt
+    const decimals = BigInt(10 ** 18); // Define the decimals as a BigInt
+    const priceNumber = Number(priceBN / decimals); // Convert to a Number after dividing by the decimals
+
+    return `$${priceNumber.toFixed(2)}`; // Displaying 2 decimal places with a dollar sign
+  };
 
   return (
     <>
@@ -99,14 +119,18 @@ const Prices = ({ contractAddresses }) => {
           >
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis dataKey="date" />
-            <YAxis />
-            <Tooltip />
+            <YAxis tickFormatter={(value) => formatTokenPrice(value)} />{" "}
+            {/* Adjust tickFormatter */}
+            <Tooltip formatter={(value) => formatTokenPrice(value)} />{" "}
+            {/* Adjust tooltip formatter */}
             <Legend />
             <Line
               type="monotone"
               dataKey="price"
               name="Price"
               stroke="#8884d8"
+              strokeWidth={2}
+              dot={false}
             />
           </LineChart>
         </div>
