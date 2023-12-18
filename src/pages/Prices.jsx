@@ -8,6 +8,7 @@ import {
   Tooltip,
   Legend,
 } from "recharts";
+import MemesAddresses from "./Memes.jsx";
 
 const Prices = ({ contractAddresses }) => {
   const [pricesData, setPricesData] = useState([]);
@@ -33,11 +34,16 @@ const Prices = ({ contractAddresses }) => {
         const chainName = "fantom-mainnet";
         const quoteCurrency = "USD";
         const apiKey = import.meta.env.VITE_API_KEY;
-
+        // Use the addresses from MemesAddresses array
         const validAddresses =
-          Array.isArray(contractAddresses) && contractAddresses.length > 0
-            ? contractAddresses
-            : ["0xb715F8DcE2F0E9b894c753711bd55eE3C04dcA4E"];
+          Array.isArray(MemesAddresses) && MemesAddresses.length > 0
+            ? MemesAddresses
+            : [];
+
+        if (validAddresses.length === 0) {
+          console.error("No addresses provided in MemesAddresses");
+          return;
+        }
 
         // Calculate start and end timestamps for the desired date range
         const startDate = new Date("2023-01-01").toISOString().split("T")[0]; // Format: YYYY-MM-DD

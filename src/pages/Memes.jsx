@@ -1,13 +1,7 @@
-import React from "react";
-import Prices from "./Prices"; // Assuming Prices.jsx is in the same directory
+const MemesAddresses = [
+  "0xf2EcDc4559d62E20b1a7F5FFF5C353f0CD3331C4",
+  "0xb715F8DcE2F0E9b894c753711bd55eE3C04dcA4E",
+  "0xe47d957F83F8887063150AaF7187411351643392",
+];
 
-const Memes = () => {
-  const memeContractAddresses = [
-    "0xf2EcDc4559d62E20b1a7F5FFF5C353f0CD3331C4",
-    "0x69c744D3444202d35a2783929a0F930f2FBB05ad",
-  ];
-
-  return <Prices contractAddresses={memeContractAddresses} />;
-};
-
-export default Memes;
+export default MemesAddresses;
