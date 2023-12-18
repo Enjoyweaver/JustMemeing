@@ -154,7 +154,7 @@ export default function Navbar() {
             >
               <div className="effect-1"></div>
               <div className="effect-2"></div>
-              <span style={{ color: "var(--nav1)" }}>Home</span>
+              <span style={{ color: "var(--nav3)" }}>Home</span>
             </NavLink>
 
             <NavLink
@@ -164,7 +164,16 @@ export default function Navbar() {
             >
               <div className="effect-1"></div>
               <div className="effect-2"></div>
-              <span style={{ color: "var(--nav5)" }}>Safe Meme Standards</span>
+              <span style={{ color: "var(--nav4)" }}>Dashboard</span>
+            </NavLink>
+            <NavLink
+              className="mr-10 NavLink product"
+              to="/Criteria"
+              activeClassName="active-link"
+            >
+              <div className="effect-1"></div>
+              <div className="effect-2"></div>
+              <span style={{ color: "var(--nav5)" }}>Criteria</span>
             </NavLink>
             <NavLink
               className="mr-10 NavLink product"
@@ -173,7 +182,7 @@ export default function Navbar() {
             >
               <div className="effect-1"></div>
               <div className="effect-2"></div>
-              <span style={{ color: "var(--nav5)" }}>Prices</span>
+              <span style={{ color: "var(--nav6)" }}>Prices</span>
             </NavLink>
           </div>
         </nav>

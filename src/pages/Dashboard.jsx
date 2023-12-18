@@ -106,18 +106,15 @@ function Portfolio() {
             color: "var(--header-color)",
             fontSize: "1.7rem",
             maxWidth: "800px",
-            marginBottom: "20px",
+            marginBottom: "10px",
           }}
         >
-          This is the DAOsigner Dashboard, which is a tool for DAOsigners to
-          track their earnings and portfolio value over time, as well as for you
-          to see our historical sales.
+          Safe Meme Dashboard
         </p>
-        <br />
       </div>
       <div
         style={{
-          marginBottom: "40px",
+          marginBottom: "20px",
         }}
       >
         {chains && chains.length > 0 ? (

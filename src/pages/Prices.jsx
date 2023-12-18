@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import {
   LineChart,
   Line,
@@ -9,147 +9,110 @@ import {
   Legend,
 } from "recharts";
 
-const colors = [
-  "#F44336",
-  "#673AB7",
-  "#03A9F4",
-  "#4CAF50",
-  "#FFEB3B",
-  "#FF5722",
-];
+const Prices = ({ contractAddresses }) => {
+  const [pricesData, setPricesData] = useState([]);
+  const [tokenData, setTokenData] = useState([]);
 
-const Prices = () => {
-  const [data, setData] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [quoteCurrency] = useState("usd");
-  const [contractName, setContractName] = useState("");
+  const transformForRecharts = (rawData) => {
+    return rawData.map((token) => ({
+      date: token.prices[0].date, // Assuming date is available in the response
+      price: token.prices[0].price, // Assuming price is available in the response
+      contractName: token.contract_name, // Contract name from the response
+      tickerSymbol: token.contract_ticker_symbol,
+      contractAddress: token.contract_address, // Contract address from the response
+      // Add more fields if needed based on the structure of the response
+    }));
+  };
 
   useEffect(() => {
-    const fetchPrices = async () => {
-      setLoading(true);
-
-      const publicKey = "0xf2EcDc4559d62E20b1a7F5FFF5C353f0CD3331C4";
-      const chainId = 250;
-      const apiKey = import.meta.env.VITE_API_KEY;
-
-      const tokenPriceURL = `https://api.covalenthq.com/v1/pricing/historical_by_addresses_v2/${chainId}/${quoteCurrency}/${publicKey}/?from=2023-05-05&to=2023-12-15`;
-
+    const fetchData = async () => {
       try {
-        const response = await fetch(tokenPriceURL, {
-          method: "GET",
-          headers: {
-            Authorization: `Basic ${btoa(apiKey + ":")}`,
-          },
-        });
+        const chainName = "fantom-mainnet";
+        const quoteCurrency = "USD";
+        const apiKey = import.meta.env.VITE_API_KEY;
 
-        if (!response.ok) {
-          throw new Error("Network response was not ok");
-        }
+        const validAddresses =
+          Array.isArray(contractAddresses) && contractAddresses.length > 0
+            ? contractAddresses
+            : ["0x321162Cd933E2Be498Cd2267a90534A804051b11"];
 
-        const responseData = await response.json();
-        console.log("API Response:", responseData);
+        const apiUrl = `https://api.covalenthq.com/v1/pricing/historical_by_addresses_v2/${chainName}/${quoteCurrency}/${validAddresses.join(
+          ","
+        )}/?key=${apiKey}`;
 
-        if (Array.isArray(responseData.data) && responseData.data.length > 0) {
-          const contractDetails = responseData.data[0];
-          if (contractDetails && contractDetails.contract_name) {
-            setContractName(contractDetails.contract_name);
-          } else {
-            console.error("Contract name not found in API response");
-          }
+        const response = await fetch(apiUrl);
+        const data = await response.json();
+
+        if (Array.isArray(data.data)) {
+          const formattedPrices = transformForRecharts(data.data);
+          setPricesData(formattedPrices);
+          setTokenData(data.data); // Set token data for displaying token details
         } else {
-          console.error("Invalid API response format or no data available");
+          console.error("Invalid data format:", data);
         }
-
-        setLoading(false);
       } catch (error) {
-        console.error("Error fetching token prices:", error);
-        setLoading(false);
+        console.error("Error fetching or processing data:", error);
+        // Handle errors as needed
       }
     };
 
-    fetchPrices();
-  }, []);
-
-  if (loading) {
-    return <div>Loading...</div>;
-  }
+    fetchData();
+  }, [contractAddresses]);
 
   return (
-    <div className="page-container mt-20">
-      <div className="paragraph-container mt-10">
-        <div className="chart-container mb-40">
-          <h2>Contract Name: {contractName}</h2>
+    <>
+      <div
+        style={{
+          marginTop: "80px",
+          justifyContent: "center",
+          display: "flex",
+          gap: "20px",
+        }}
+      >
+        <div>
+          <h2>Token Details</h2>
+          <ul>
+            {tokenData.map((token, index) => (
+              <li key={index}>
+                <img src={token.logo_url} alt={token.contract_ticker_symbol} />
+                <p>Name: {token.contract_name}</p>
+                <p>Symbol: {token.contract_ticker_symbol}</p>
+                <p>Address: {token.contract_address}</p>
+                {token.prices &&
+                token.prices.length > 0 &&
+                token.prices[0].price !== null ? (
+                  <p>Price: {token.prices[0].pretty_price}</p>
+                ) : (
+                  <p>Price: Not available</p>
+                )}
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div>
+          <h2>Current Prices</h2>
           <LineChart
-            width={1200}
-            height={500}
-            data={data}
-            margin={{
-              top: 5,
-              right: 20,
-              left: 20,
-            }}
+            width={800}
+            height={400}
+            data={pricesData}
+            margin={{ top: 20, right: 30, left: 20, bottom: 10 }}
           >
-            <CartesianGrid strokeDasharray="3 3" stroke="var(--header-color)" />
-            <XAxis
-              dataKey="timestamp"
-              tick={{ fill: "var(--description-color)", fontSize: ".9em" }}
+            <CartesianGrid strokeDasharray="3 3" />
+            <XAxis dataKey="date" />
+            <YAxis />
+            <Tooltip />
+            <Legend />
+            <Line
+              type="monotone"
+              dataKey="price"
+              name="Price"
+              stroke="#8884d8"
             />
-            <YAxis
-              tickFormatter={(value) => `$${value}`}
-              tick={{ fill: "var(--header-color)", fontSize: "1.2em" }}
-            />
-            <Tooltip
-              formatter={(value) => `$${parseFloat(value).toFixed(2)}`}
-            />
-            <Legend tick={{ fontSize: "1.6em" }} />
-            {Object.keys(data[0] || {}).map((item, i) => {
-              return (
-                <Line
-                  key={i}
-                  dataKey={item}
-                  stroke={colors[i]}
-                  dot={false} // Remove dots marking each data point
-                  strokeWidth={3.2} // Set the line thickness
-                />
-              );
-            })}
           </LineChart>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 
 export default Prices;
-
-const transformForRecharts = (rawData) => {
-  const transformedData = rawData.reduce((acc, curr) => {
-    if (curr.holdings && curr.holdings.length > 0) {
-      // Check if holdings exist and have elements
-      const singleTokenTimeSeries = curr.holdings.map((holdingsItem) => {
-        // Formatting the date string just a little...
-        const dateStr = holdingsItem.timestamp.slice(0, 10);
-        const date = new Date(dateStr);
-        const options = {
-          day: "numeric",
-          month: "short",
-          year: "numeric",
-        };
-        const formattedDate = date.toLocaleDateString("en-US", options);
-        return {
-          timestamp: formattedDate,
-          [curr.contract_ticker_symbol]: holdingsItem.close.quote,
-        };
-      });
-
-      const newArr = singleTokenTimeSeries.map((item, i) =>
-        Object.assign(item, acc[i])
-      );
-      return newArr;
-    } else {
-      return acc; // If holdings is undefined or empty, return the accumulator as is
-    }
-  }, []);
-
-  return transformedData;
-};
