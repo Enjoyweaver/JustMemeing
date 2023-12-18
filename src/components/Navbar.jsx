@@ -39,6 +39,7 @@ export default function Navbar() {
               style={{
                 color: "var(--button-text)",
                 backgroundColor: "var(--button-background)",
+                minWidth: "8rem",
               }}
             >
               {selectedTheme}
@@ -154,15 +155,6 @@ export default function Navbar() {
               <div className="effect-1"></div>
               <div className="effect-2"></div>
               <span style={{ color: "var(--nav1)" }}>Home</span>
-            </NavLink>
-            <NavLink
-              className="mr-10 NavLink product"
-              to="/DAOsigners"
-              activeClassName="active-link"
-            >
-              <div className="effect-1"></div>
-              <div className="effect-2"></div>
-              <span style={{ color: "var(--nav4)" }}>Safe Memes</span>
             </NavLink>
 
             <NavLink

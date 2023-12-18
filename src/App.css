@@ -1,29 +1,32 @@
 :root {
   /* Default theme */
-  --nav1: #e6f6e9;
-  --nav2: #e3e7d8;
-  --nav3: #d4eddf;
-  --bac1: #f2f8f3;
-  --bac2: #d3d3d3;
-  --bac3: #b2d4c3;
-  --bac4: #e3f5eb;
-  --bac5: #d0e2d5;
-  --header-color: #678677;
-  --description-color: #67976f;
-  --content-color: #819251;
-  --hover-description-background: #d0e2d5;
-  --effect-1: #e3f5eb;
-  --effect-2: #f2f8f3;
+  --nav1: #afbccf;
+  --nav2: #a3a4d3;
+  --nav3: #7c95da;
+  --nav4: #5370d8;
+  --nav5: #273fac;
+  --nav6: #192a96;
+  --bac1: #f0f5f9;
+  --bac2: #f5f5f5;
+  --bac3: #1b365d;
+  --bac4: #a2c2d8;
+  --bac5: #88b7dc;
+  --header-color: #1e2a78;
+  --description-color: #1b365d;
+  --content-color: #648db1;
+  --hover-description-background: #88b7dc;
+  --effect-1: #eff6ff; /* Default to a light color */
+  --effect-2: #f0f5f9; /* Similar to the background for subtlety */
   background-image: radial-gradient(circle at 10% 20%, var(--bac1), transparent),
     radial-gradient(circle at 80% 70%, var(--bac2), transparent),
-    linear-gradient(to bottom right, var(--bac3), rgba(var(--bac3), 0.5)),
-    linear-gradient(to top left, var(--bac4), rgba(var(--bac4), 0.5)),
-    linear-gradient(to bottom, var(--bac5), rgba(var(--bac5), 0.8));
+    linear-gradient(to bottom right, var(--bac3), transparent),
+    linear-gradient(to top left, var(--bac4), transparent),
+    linear-gradient(to bottom, var(--bac5), transparent);
   background-size: 100% 100%;
   background-repeat: no-repeat;
-  --button-text: #649e83;
-  --hover-text: #f0f8f6;
-  --hover-subtext: #f8f5f2;
+  --button-text: #1e2a78; /* Ensure enough contrast against background */
+  --hover-text: #234f88; /* Contrast against the hover background */
+  --hover-subtext: #29285c; /* Subtle hover effect */
 }
 
 [data-theme="Morning"] {

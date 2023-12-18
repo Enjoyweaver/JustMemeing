@@ -22,6 +22,7 @@ const Prices = () => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [quoteCurrency] = useState("usd");
+  const [contractName, setContractName] = useState("");
 
   useEffect(() => {
     const fetchPrices = async () => {
@@ -31,7 +32,7 @@ const Prices = () => {
       const chainId = 250;
       const apiKey = import.meta.env.VITE_API_KEY;
 
-      const tokenPriceURL = `https://api.covalenthq.com/v1/pricing/historical_by_addresses_v2/${chainId}/${quoteCurrency}/${publicKey}/?from=2023-01-01&to=2023-12-15`;
+      const tokenPriceURL = `https://api.covalenthq.com/v1/pricing/historical_by_addresses_v2/${chainId}/${quoteCurrency}/${publicKey}/?from=2023-05-05&to=2023-12-15`;
 
       try {
         const response = await fetch(tokenPriceURL, {
@@ -46,8 +47,19 @@ const Prices = () => {
         }
 
         const responseData = await response.json();
-        const transformedData = transformForRecharts(responseData.data); // Transform data
-        setData(transformedData); // Set transformed data
+        console.log("API Response:", responseData);
+
+        if (Array.isArray(responseData.data) && responseData.data.length > 0) {
+          const contractDetails = responseData.data[0];
+          if (contractDetails && contractDetails.contract_name) {
+            setContractName(contractDetails.contract_name);
+          } else {
+            console.error("Contract name not found in API response");
+          }
+        } else {
+          console.error("Invalid API response format or no data available");
+        }
+
         setLoading(false);
       } catch (error) {
         console.error("Error fetching token prices:", error);
@@ -66,6 +78,7 @@ const Prices = () => {
     <div className="page-container mt-20">
       <div className="paragraph-container mt-10">
         <div className="chart-container mb-40">
+          <h2>Contract Name: {contractName}</h2>
           <LineChart
             width={1200}
             height={500}
@@ -110,23 +123,33 @@ const Prices = () => {
 export default Prices;
 
 const transformForRecharts = (rawData) => {
-  if (!rawData || !rawData.prices || !Array.isArray(rawData.prices)) {
-    console.error("Invalid or empty data provided for transformation");
-    return []; // Return an empty array or handle the error as needed
-  }
+  const transformedData = rawData.reduce((acc, curr) => {
+    if (curr.holdings && curr.holdings.length > 0) {
+      // Check if holdings exist and have elements
+      const singleTokenTimeSeries = curr.holdings.map((holdingsItem) => {
+        // Formatting the date string just a little...
+        const dateStr = holdingsItem.timestamp.slice(0, 10);
+        const date = new Date(dateStr);
+        const options = {
+          day: "numeric",
+          month: "short",
+          year: "numeric",
+        };
+        const formattedDate = date.toLocaleDateString("en-US", options);
+        return {
+          timestamp: formattedDate,
+          [curr.contract_ticker_symbol]: holdingsItem.close.quote,
+        };
+      });
 
-  const transformedData = rawData.prices.map((item) => {
-    const formattedDate = new Date(item.date).toLocaleDateString("en-US", {
-      day: "numeric",
-      month: "short",
-      year: "numeric",
-    });
-
-    return {
-      timestamp: formattedDate,
-      [item.contract_ticker_symbol]: parseFloat(item.price),
-    };
-  });
+      const newArr = singleTokenTimeSeries.map((item, i) =>
+        Object.assign(item, acc[i])
+      );
+      return newArr;
+    } else {
+      return acc; // If holdings is undefined or empty, return the accumulator as is
+    }
+  }, []);
 
   return transformedData;
 };
