@@ -16,15 +16,17 @@ const Prices = ({ contractAddresses }) => {
 
   const transformForRecharts = (rawData, startDate, endDate) => {
     return rawData
-      .flatMap((token) => token.prices) // Flatten the array of prices from multiple tokens
-      .filter((price) => price.date >= startDate && price.date <= endDate)
+      .flatMap((token) =>
+        token.prices.filter(
+          (price) => price.date >= startDate && price.date <= endDate
+        )
+      )
       .map((price) => ({
         date: price.date,
         price: price.price,
         contractName: price.contract_metadata.contract_name,
         tickerSymbol: price.contract_metadata.contract_ticker_symbol,
         contractAddress: price.contract_metadata.contract_address,
-        // Add more fields if needed based on the structure of the response
       }));
   };
 
@@ -66,16 +68,16 @@ const Prices = ({ contractAddresses }) => {
           startDate,
           endDate
         );
+
         setPricesData(formattedPrices);
-        setTokenData(responseData.data); // Set token data for displaying token details
+        setTokenData(responseData.data);
       } catch (error) {
         console.error("Error fetching or processing data:", error);
-        // Handle errors as needed
       }
     };
 
     fetchData();
-  }, [contractAddresses]);
+  }, []);
 
   const formatTokenPrice = (price) => {
     const priceBN = BigInt(parseFloat(price * 10 ** 18).toFixed(0)); // Convert the number to BigInt
@@ -118,27 +120,32 @@ const Prices = ({ contractAddresses }) => {
         <div>
           <h2>Current Prices</h2>
           <LineChart
-            width={800}
+            width={1000}
             height={400}
             data={pricesData}
             margin={{ top: 20, right: 30, left: 20, bottom: 10 }}
           >
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis dataKey="date" />
-            <YAxis tickFormatter={(value) => formatTokenPrice(value)} />{" "}
-            {/* Adjust tickFormatter */}
-            <Tooltip formatter={(value) => formatTokenPrice(value)} />{" "}
-            {/* Adjust tooltip formatter */}
+            <YAxis tickFormatter={(value) => formatTokenPrice(value)} />
+            <Tooltip formatter={(value) => formatTokenPrice(value)} />
             <Legend />
-            <Line
-              type="monotone"
-              dataKey="price"
-              name="Price"
-              stroke="#8884d8"
-              strokeWidth={2}
-              dot={false}
-            />
+            {tokenData.map((token, index) => (
+              <Line
+                key={index}
+                type="monotone"
+                dataKey="price"
+                name={token.contract_ticker_symbol}
+                data={pricesData.filter(
+                  (price) => price.contractAddress === token.contract_address
+                )}
+                stroke={`#${Math.floor(Math.random() * 16777215).toString(16)}`}
+                strokeWidth={2}
+                dot={false}
+              />
+            ))}
           </LineChart>
+          ;
         </div>
       </div>
     </>
