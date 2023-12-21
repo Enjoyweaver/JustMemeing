@@ -10,25 +10,31 @@ import {
 } from "recharts";
 import MemesAddresses from "./Memes.jsx";
 
+const transformForUnifiedTimeline = (rawData) => {
+  const transformedData = rawData.reduce((acc, curr) => {
+    curr.prices.forEach((price) => {
+      const existingData = acc.find((data) => data.date === price.date);
+
+      if (existingData) {
+        existingData[curr.contract_address] = price.price;
+      } else {
+        const newData = {
+          date: price.date,
+          [curr.contract_address]: price.price,
+        };
+        acc.push(newData);
+      }
+    });
+
+    return acc;
+  }, []);
+
+  return transformedData;
+};
+
 const Prices = ({ contractAddresses }) => {
   const [pricesData, setPricesData] = useState([]);
   const [tokenData, setTokenData] = useState([]);
-
-  const transformForRecharts = (rawData, startDate, endDate) => {
-    return rawData
-      .flatMap((token) =>
-        token.prices.filter(
-          (price) => price.date >= startDate && price.date <= endDate
-        )
-      )
-      .map((price) => ({
-        date: price.date,
-        price: price.price,
-        contractName: price.contract_metadata.contract_name,
-        tickerSymbol: price.contract_metadata.contract_ticker_symbol,
-        contractAddress: price.contract_metadata.contract_address,
-      }));
-  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -63,11 +69,7 @@ const Prices = ({ contractAddresses }) => {
           return; // Stop further execution if there's an error in the response
         }
 
-        const formattedPrices = transformForRecharts(
-          responseData.data,
-          startDate,
-          endDate
-        );
+        const formattedPrices = transformForUnifiedTimeline(responseData.data);
 
         setPricesData(formattedPrices);
         setTokenData(responseData.data);
@@ -119,33 +121,43 @@ const Prices = ({ contractAddresses }) => {
         </div>
         <div>
           <h2>Current Prices</h2>
-          <LineChart
-            width={1000}
-            height={400}
-            data={pricesData}
-            margin={{ top: 20, right: 30, left: 20, bottom: 10 }}
-          >
-            <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="date" />
-            <YAxis tickFormatter={(value) => formatTokenPrice(value)} />
-            <Tooltip formatter={(value) => formatTokenPrice(value)} />
-            <Legend />
-            {tokenData.map((token, index) => (
-              <Line
-                key={index}
-                type="monotone"
-                dataKey="price"
-                name={token.contract_ticker_symbol}
-                data={pricesData.filter(
-                  (price) => price.contractAddress === token.contract_address
-                )}
-                stroke={`#${Math.floor(Math.random() * 16777215).toString(16)}`}
-                strokeWidth={2}
-                dot={false}
-              />
-            ))}
-          </LineChart>
-          ;
+          {pricesData.length > 0 && ( // Check if pricesData has data before rendering the chart
+            <LineChart
+              width={1000}
+              height={400}
+              data={pricesData}
+              margin={{ top: 20, right: 30, left: 20, bottom: 10 }}
+            >
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis dataKey="date" />
+              <YAxis tickFormatter={(value) => formatTokenPrice(value)} />
+              <Tooltip formatter={(value) => formatTokenPrice(value)} />
+              <Legend />
+              {Object.keys(pricesData[0] || {})
+                .filter((key) => key !== "date")
+                .map((address, index) => {
+                  const matchingToken = tokenData.find(
+                    (token) => token.contract_address === address
+                  );
+
+                  return (
+                    <Line
+                      key={index}
+                      type="monotone"
+                      dataKey={address}
+                      name={
+                        matchingToken ? matchingToken.contract_name : address
+                      } // Use contract_name if available, otherwise use address
+                      stroke={`#${Math.floor(Math.random() * 16777215).toString(
+                        16
+                      )}`}
+                      strokeWidth={2}
+                      dot={false}
+                    />
+                  );
+                })}
+            </LineChart>
+          )}
         </div>
       </div>
     </>
