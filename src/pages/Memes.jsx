@@ -1,7 +1,6 @@
 const MemesAddresses = [
   "0xb715F8DcE2F0E9b894c753711bd55eE3C04dcA4E",
   "0xe47d957F83F8887063150AaF7187411351643392",
-  "0x97bdAfe3830734acF12Da25359674277fcc33729",
 ];
 
 export default MemesAddresses;

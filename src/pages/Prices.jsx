@@ -55,8 +55,7 @@ const Prices = ({ contractAddresses }) => {
           return;
         }
 
-        // Calculate start and end timestamps for the desired date range
-        const startDate = new Date("2023-01-01").toISOString().split("T")[0]; // Format: YYYY-MM-DD
+        const startDate = new Date("2023-01-01").toISOString().split("T")[0];
         const endDate = new Date().toISOString().split("T")[0];
 
         const apiUrl = `https://api.covalenthq.com/v1/pricing/historical_by_addresses_v2/${chainName}/${quoteCurrency}/${validAddresses.join(
@@ -136,7 +135,13 @@ const Prices = ({ contractAddresses }) => {
                   }
                 }}
               />
-              <Legend align="left" verticalAlign="middle" layout="vertical" />
+              <Legend
+                align="left"
+                verticalAlign="top"
+                layout="vertical"
+                iconType="diamond"
+                iconSize={20}
+              />
               {Object.keys(pricesData[0] || {})
                 .filter((key) => key !== "date")
                 .map((address, index) => {
