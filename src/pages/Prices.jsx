@@ -55,7 +55,7 @@ const Prices = ({ contractAddresses }) => {
 
         // Calculate start and end timestamps for the desired date range
         const startDate = new Date("2023-01-01").toISOString().split("T")[0]; // Format: YYYY-MM-DD
-        const endDate = new Date("2023-12-01").toISOString().split("T")[0]; // Format: YYYY-MM-DD
+        const endDate = new Date().toISOString().split("T")[0];
 
         const apiUrl = `https://api.covalenthq.com/v1/pricing/historical_by_addresses_v2/${chainName}/${quoteCurrency}/${validAddresses.join(
           ","
@@ -82,11 +82,8 @@ const Prices = ({ contractAddresses }) => {
   }, []);
 
   const formatTokenPrice = (price) => {
-    const priceBN = BigInt(parseFloat(price * 10 ** 18).toFixed(0)); // Convert the number to BigInt
-    const decimals = BigInt(10 ** 18); // Define the decimals as a BigInt
-    const priceNumber = Number(priceBN / decimals); // Convert to a Number after dividing by the decimals
-
-    return `$${priceNumber.toFixed(2)}`; // Displaying 2 decimal places with a dollar sign
+    const priceNumber = parseFloat(price * 10 ** 18); // Convert the number to a float
+    return `$${(priceNumber / 10 ** 18).toFixed(10)}`; // Displaying up to 10 decimal places with a dollar sign
   };
 
   return (
@@ -100,39 +97,49 @@ const Prices = ({ contractAddresses }) => {
         }}
       >
         <div>
-          <h2>Token Details</h2>
-          <ul>
-            {tokenData.map((token, index) => (
-              <li key={index}>
-                <img src={token.logo_url} alt={token.contract_ticker_symbol} />
-                <p>Name: {token.contract_name}</p>
-                <p>Symbol: {token.contract_ticker_symbol}</p>
-                <p>Address: {token.contract_address}</p>
-                {token.prices &&
-                token.prices.length > 0 &&
-                token.prices[0].price !== null ? (
-                  <p>Price: {token.prices[0].pretty_price}</p>
-                ) : (
-                  <p>Price: Not available</p>
-                )}
-              </li>
-            ))}
-          </ul>
-        </div>
-        <div>
           <h2>Current Prices</h2>
-          {pricesData.length > 0 && ( // Check if pricesData has data before rendering the chart
+          {pricesData.length > 0 && (
             <LineChart
-              width={1000}
-              height={400}
+              width={1400}
+              height={600}
               data={pricesData}
               margin={{ top: 20, right: 30, left: 20, bottom: 10 }}
             >
-              <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="date" />
-              <YAxis tickFormatter={(value) => formatTokenPrice(value)} />
-              <Tooltip formatter={(value) => formatTokenPrice(value)} />
-              <Legend />
+              <CartesianGrid
+                strokeDasharray="3 3"
+                stroke="var(--header-color)"
+              />
+              <XAxis
+                dataKey="date"
+                tick={{ fill: "var(--description-color)", fontSize: ".9em" }}
+              />
+              <YAxis
+                type="number"
+                allowDataOverflow={true}
+                tick={{ fill: "var(--header-color)", fontSize: ".9em" }}
+                tickFormatter={(value) => {
+                  if (value < 0.01) {
+                    return `$${parseFloat(value).toFixed(12)}`;
+                  } else {
+                    return `$${parseFloat(value).toFixed(2)}`;
+                  }
+                }}
+              />
+
+              <Tooltip
+                formatter={(value) => {
+                  if (value < 0.01) {
+                    return `$${parseFloat(value).toFixed(12)}`;
+                  } else {
+                    return `$${parseFloat(value).toFixed(2)}`;
+                  }
+                }}
+              />
+              <Legend
+                align="left" // Align the legend to the left
+                verticalAlign="middle" // Center the legend vertically
+                layout="vertical" // Set the layout to vertical
+              />
               {Object.keys(pricesData[0] || {})
                 .filter((key) => key !== "date")
                 .map((address, index) => {
@@ -151,7 +158,7 @@ const Prices = ({ contractAddresses }) => {
                       stroke={`#${Math.floor(Math.random() * 16777215).toString(
                         16
                       )}`}
-                      strokeWidth={2}
+                      strokeWidth={3.2}
                       dot={false}
                     />
                   );
@@ -159,6 +166,26 @@ const Prices = ({ contractAddresses }) => {
             </LineChart>
           )}
         </div>
+      </div>
+      <div>
+        <h2>Token Details</h2>
+        <ul>
+          {tokenData.map((token, index) => (
+            <li key={index}>
+              <img src={token.logo_url} alt={token.contract_ticker_symbol} />
+              <p>Name: {token.contract_name}</p>
+              <p>Symbol: {token.contract_ticker_symbol}</p>
+              <p>Address: {token.contract_address}</p>
+              {token.prices &&
+              token.prices.length > 0 &&
+              token.prices[0].price !== null ? (
+                <p>Price: {token.prices[0].pretty_price}</p>
+              ) : (
+                <p>Price: Not available</p>
+              )}
+            </li>
+          ))}
+        </ul>
       </div>
     </>
   );
