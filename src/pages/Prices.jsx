@@ -7,6 +7,8 @@ import {
   CartesianGrid,
   Tooltip,
   Legend,
+  Brush,
+  ReferenceLine,
 } from "recharts";
 import MemesAddresses from "./Memes.jsx";
 
@@ -125,7 +127,6 @@ const Prices = ({ contractAddresses }) => {
                   }
                 }}
               />
-
               <Tooltip
                 formatter={(value) => {
                   if (value < 0.01) {
@@ -135,11 +136,7 @@ const Prices = ({ contractAddresses }) => {
                   }
                 }}
               />
-              <Legend
-                align="left" // Align the legend to the left
-                verticalAlign="middle" // Center the legend vertically
-                layout="vertical" // Set the layout to vertical
-              />
+              <Legend align="left" verticalAlign="middle" layout="vertical" />
               {Object.keys(pricesData[0] || {})
                 .filter((key) => key !== "date")
                 .map((address, index) => {
@@ -154,7 +151,7 @@ const Prices = ({ contractAddresses }) => {
                       dataKey={address}
                       name={
                         matchingToken ? matchingToken.contract_name : address
-                      } // Use contract_name if available, otherwise use address
+                      }
                       stroke={`#${Math.floor(Math.random() * 16777215).toString(
                         16
                       )}`}
@@ -163,6 +160,8 @@ const Prices = ({ contractAddresses }) => {
                     />
                   );
                 })}
+              <Brush dataKey="date" height={30} stroke="#8884d8" />
+              <ReferenceLine x="05/01/2023" stroke="red" label="Test Date" />
             </LineChart>
           )}
         </div>
