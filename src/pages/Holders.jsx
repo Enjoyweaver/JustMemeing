@@ -28,13 +28,13 @@ const Holders = ({ publicKey }) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const chainId = "fantom-mainnet";
+        const chainId = "ethereum-mainnet";
         const apiKey = import.meta.env.VITE_API_KEY;
 
         const validAddresses =
           Array.isArray(publicKey) && publicKey.length > 0
             ? publicKey
-            : ["0x321162Cd933E2Be498Cd2267a90534A804051b11"];
+            : ["0x95aD61b0a150d79219dCF64E1E6Cc01f0B64C4cE"];
         const apiUrl = `https://api.covalenthq.com/v1/${chainId}/address/${publicKey}/token_holders_v2/`;
 
         const response = await fetch(apiUrl);
