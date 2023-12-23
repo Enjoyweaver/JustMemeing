@@ -19,9 +19,9 @@ const TokenHolders = () => {
             // Get the latest block number
             const latestBlock = await web3.eth.getBlockNumber();
 
-            // Fetch logs within a specific block range (e.g., last 10000 blocks)
+            // Fetch logs within a specific block range (e.g., last 3000 blocks)
             const transferEvents = await web3.eth.getPastLogs({
-              fromBlock: latestBlock - 2000, // Adjust this number as needed
+              fromBlock: latestBlock - 3000, // Adjust this number as needed
               toBlock: latestBlock,
               address: contractAddress,
               topics: [transferEventSignature],

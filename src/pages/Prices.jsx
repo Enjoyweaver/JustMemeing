@@ -136,11 +136,12 @@ const Prices = ({ contractAddresses }) => {
                 }}
               />
               <Legend
-                align="left"
+                align="center"
                 verticalAlign="top"
-                layout="vertical"
+                layout="horizontal"
                 iconType="diamond"
                 iconSize={20}
+                height={46}
               />
               {Object.keys(pricesData[0] || {})
                 .filter((key) => key !== "date")
