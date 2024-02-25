@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import Web3 from "web3";
 import MemesAddresses from "./Memes.jsx";
 
 const TokenHolders = () => {
@@ -8,28 +7,18 @@ const TokenHolders = () => {
   useEffect(() => {
     const fetchHolderCounts = async () => {
       try {
-        const web3 = new Web3("https://rpc.ftm.tools/");
-
         const counts = await Promise.all(
           MemesAddresses.map(async (contractAddress) => {
-            const transferEventSignature = web3.utils.sha3(
-              "Transfer(address,address,uint256)"
-            );
-
-            // Get the latest block number
-            const latestBlock = await web3.eth.getBlockNumber();
-
-            // Fetch logs within a specific block range (e.g., last 3000 blocks)
-            const transferEvents = await web3.eth.getPastLogs({
-              fromBlock: latestBlock - 3000, // Adjust this number as needed
-              toBlock: latestBlock,
-              address: contractAddress,
-              topics: [transferEventSignature],
-            });
+            // Simulated data for testing purposes
+            const simulatedTransferEvents = [
+              { topics: ["", "address1", "address2"] },
+              { topics: ["", "address3", "address4"] },
+              { topics: ["", "address5", "address6"] },
+            ];
 
             // Approximate number of unique addresses involved in transfers
             const uniqueAddresses = new Set();
-            transferEvents.forEach((event) => {
+            simulatedTransferEvents.forEach((event) => {
               uniqueAddresses.add(event.topics[1]); // indexed parameter (from)
               uniqueAddresses.add(event.topics[2]); // indexed parameter (to)
             });
