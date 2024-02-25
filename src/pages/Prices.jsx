@@ -98,11 +98,13 @@ const Prices = ({ contractAddresses }) => {
         }}
       >
         <div>
-          <h2>Current Prices</h2>
+          <h2 style={{ color: "var(--header-color)", fontSize: "2rem" }}>
+            Current Prices
+          </h2>
           {pricesData.length > 0 && (
             <LineChart
-              width={1400}
-              height={600}
+              width={1000}
+              height={400}
               data={pricesData}
               margin={{ top: 20, right: 30, left: 20, bottom: 10 }}
             >

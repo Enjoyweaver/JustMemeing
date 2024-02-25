@@ -2,7 +2,7 @@ import React from "react";
 
 export default function Criteria() {
   return (
-    <div className="pt-20 pb-20">
+    <div className="pt-10 pb-20">
       <div className="pt-10 flex flex-col">
         <div className="text-center">
           <br />
@@ -29,6 +29,102 @@ export default function Criteria() {
               team possesses the capability to manipulate proxy contracts,
               withdraw access to liquidity, or retain ownership control of the
               token itself, potentially leading to events like rug pulls.
+            </p>
+            <br />
+            <p
+              style={{
+                color: "var(--content-color)",
+                fontSize: "1.2rem",
+                maxWidth: "800px",
+                margin: "0 auto",
+              }}
+            >
+              <strong>Max purchase allowance</strong> is a strong consideration
+              for defining a safememe because it limits the
+            </p>
+            <br />
+            <p
+              style={{
+                color: "var(--content-color)",
+                fontSize: "1.2rem",
+                maxWidth: "800px",
+                margin: "0 auto",
+              }}
+            >
+              <strong>Minimal team token allocation</strong> is a strong
+              consideration for defining a safememe because it limits the
+            </p>
+            <br />
+            <p
+              style={{
+                color: "var(--content-color)",
+                fontSize: "1.2rem",
+                maxWidth: "800px",
+                margin: "0 auto",
+              }}
+            >
+              <strong>No honeypot mechanisms</strong> is a strong consideration
+              for defining a safememe because it limits the
+            </p>
+            <br />
+            <p
+              style={{
+                color: "var(--content-color)",
+                fontSize: "1.2rem",
+                maxWidth: "800px",
+                margin: "0 auto",
+              }}
+            >
+              <strong>No token ownership</strong> is a strong consideration for
+              defining a safememe because it limits the
+            </p>
+            <br />
+            <p
+              style={{
+                color: "var(--content-color)",
+                fontSize: "1.2rem",
+                maxWidth: "800px",
+                margin: "0 auto",
+              }}
+            >
+              <strong>No buy or sell transaction tax</strong> is a strong
+              consideration for defining a safememe because it limits the
+            </p>
+            <br />
+            <p
+              style={{
+                color: "var(--content-color)",
+                fontSize: "1.2rem",
+                maxWidth: "800px",
+                margin: "0 auto",
+              }}
+            >
+              <strong>No trading cooldown mechanism</strong> is a strong
+              consideration for defining a safememe because it limits the
+            </p>
+            <br />
+            <p
+              style={{
+                color: "var(--content-color)",
+                fontSize: "1.2rem",
+                maxWidth: "800px",
+                margin: "0 auto",
+              }}
+            >
+              <strong>Open source code</strong> is a strong consideration for
+              defining a safememe because it limits the
+            </p>
+            <br />
+            <p
+              style={{
+                color: "var(--content-color)",
+                fontSize: "1.2rem",
+                maxWidth: "800px",
+                margin: "0 auto",
+              }}
+            >
+              <strong>No upgradable proxy contract</strong> is a strong
+              consideration for defining a safememe because it limits the
             </p>
           </div>
         </div>
