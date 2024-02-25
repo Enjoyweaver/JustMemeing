@@ -94,10 +94,10 @@ export default function Home() {
           </div>
         </div>
       </div>
-      <style jsx>{`
+      <style>{`
         @media screen and (max-width: 600px) {
           .paragraph {
-            max-width: 400px; /* Adjust the width for mobile screens */
+            max-width: 300px; /* Adjust the width for mobile screens */
           }
         }
       `}</style>
