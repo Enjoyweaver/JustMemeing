@@ -12,10 +12,10 @@ export default function Home() {
           autoPlay
           loop
           muted
-          width="840"
-          height="660"
+          width="540"
+          height="360"
           className="mx-auto"
-          style={hoverStyle}
+          style={{ ...hoverStyle, borderRadius: "20px" }}
           onMouseOver={(e) => {
             e.target.style.transform = "scale(1.2)";
           }}
@@ -83,8 +83,8 @@ export default function Home() {
             >
               If you dont see your meme on our dashboard and want to, then
               please submit it on the{" "}
-              <a href="https://app.deform.cc/form/27997b11-7f60-4298-9c99-7226ff9305eb/">
-                Meme Submission Form.
+              <a href="https://app.deform.cc/form/e5410f05-4cf4-4cd4-85dc-08a4b3191ebf">
+                Safememe Submission Form.
               </a>
             </p>
           </div>

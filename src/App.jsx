@@ -34,7 +34,7 @@ function App() {
     <RouterProvider router={router}>
       <header>
         <nav>
-          <h1>DAOsigner Apparel</h1>
+          <h1>SafeMeme</h1>
           <div>
             <NavLink to="/">Home</NavLink>
           </div>

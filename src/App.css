@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 :root {
   /* Default theme */
   --nav1: #afbccf;
@@ -367,10 +371,6 @@
 body {
   background: var(--background-color);
 }
-
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
 
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
