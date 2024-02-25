@@ -36,6 +36,7 @@ export default function Home() {
           <br />
           <div className="text-left">
             <p
+              className="paragraph"
               style={{
                 color: "var(--description-color)",
                 fontSize: "1.2rem",
@@ -49,6 +50,7 @@ export default function Home() {
             </p>
             <br />
             <p
+              className="paragraph"
               style={{
                 color: "var(--content-color)",
                 fontSize: "1.2rem",
@@ -61,6 +63,7 @@ export default function Home() {
             </p>
             <br />
             <p
+              className="paragraph"
               style={{
                 color: "var(--content-color)",
                 fontSize: "1.2rem",
@@ -74,6 +77,7 @@ export default function Home() {
             </p>
             <br />
             <p
+              className="paragraph"
               style={{
                 color: "var(--content-color)",
                 fontSize: "1.2rem",
@@ -90,6 +94,13 @@ export default function Home() {
           </div>
         </div>
       </div>
+      <style jsx>{`
+        @media screen and (max-width: 600px) {
+          .paragraph {
+            max-width: 400px; /* Adjust the width for mobile screens */
+          }
+        }
+      `}</style>
     </div>
   );
 }
