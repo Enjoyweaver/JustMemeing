@@ -156,16 +156,6 @@ export default function Navbar() {
               <div className="effect-2"></div>
               <span style={{ color: "var(--nav3)" }}>Home</span>
             </NavLink>
-
-            <NavLink
-              className="mr-10 NavLink product"
-              to="/Dashboard"
-              activeClassName="active-link"
-            >
-              <div className="effect-1"></div>
-              <div className="effect-2"></div>
-              <span style={{ color: "var(--nav4)" }}>Dashboard</span>
-            </NavLink>
             <NavLink
               className="mr-10 NavLink product"
               to="/Criteria"
@@ -183,15 +173,6 @@ export default function Navbar() {
               <div className="effect-1"></div>
               <div className="effect-2"></div>
               <span style={{ color: "var(--nav6)" }}>Prices</span>
-            </NavLink>
-            <NavLink
-              className="mr-10 NavLink product"
-              to="/Holders"
-              activeClassName="active-link"
-            >
-              <div className="effect-1"></div>
-              <div className="effect-2"></div>
-              <span style={{ color: "var(--nav6)" }}>Holders</span>
             </NavLink>
             <NavLink
               className="mr-10 NavLink product"
